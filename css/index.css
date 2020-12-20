@@ -223,6 +223,7 @@ figure.highlight {
   background: rgba(128,203,196,0.251);
   color: #525252;
 }
+/*$font-family = "Times New Roman", FangSong, STFangsong, sans-serif;*/
 * {
   -webkit-text-size-adjust: none;
 }
@@ -240,13 +241,13 @@ body {
   color: #494e52;
   font-size: 1.8em;
   line-height: 1.5;
-  font-family: "Times New Roman", FangSong, STFangsong, sans-serif;
+  font-family: "Lato", italic;
   scroll-behavior: smooth;
 }
 a,
 span,
 .btn {
-  font-family: "Times New Roman", FangSong, STFangsong, sans-serif;
+  font-family: "Lato", italic;
 }
 img {
   max-width: 100%;
@@ -460,15 +461,27 @@ blockquote p {
 }
 .page article p,
 .page article li {
-  font-size: 1.8rem;
+  font-size: 1.4rem;
 }
 .page article a {
-  color: #494e52;
+  font-size: 1.4rem;
+  color: #1772d0;
   -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
 }
 .page article a:hover {
-  color: #c62641;
+  color: $ #f09228;
+}
+.page article strong {
+  font-size: 1.4rem;
+}
+.page article papertitle {
+  font-family: 'Lato', Verdana, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+}
+.page article td {
+  font-size: 1.4rem;
 }
 .page article .highlight {
   overflow: auto;
@@ -486,7 +499,7 @@ blockquote p {
   text-align: right;
 }
 .page article code {
-  font-family: "Times New Roman", FangSong, STFangsong, sans-serif;
+  font-family: "Lato", italic;
   padding: 0.2rem 0.3rem;
   background: rgba(27,31,35,0.05);
   word-wrap: break-word;
