@@ -6,18 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Weixiong&#39;s Website</title>
+  <title>Deploy Private Git Repo | Weixiong&#39;s Website</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="动手搭建一个私有代码仓库 动手搭建一个私有代码仓库 为什么不用 Github 部署 通过 Docker 安装 邮件设置 CI&#x2F;CD https Bug git clone 无效     使用    为什么不用 GithubGithub, Gitee 能够满足绝大多数个体对代码托管平台的需求, 但是团队超过 5 人需要开通企业版, 人均 300 元每年。但是如果你们已经有一台服务器, 就可以用 Gi">
+  <meta name="description" content="动手搭建一个私有代码仓库Github, Gitee 能够满足绝大多数个体对代码托管平台的需求, 但是团队超过 5 人需要开通企业版, 人均 300 元每年。但是如果你们已经有一台服务器, 就可以用 Gitea 零成本部署一个私有代码托管服务。下面是具体做法。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Weixiong&#39;s Website">
-<meta property="og:url" content="http://example.com/2024/03/24/software_engineering/gitea/index.html">
+<meta property="og:title" content="Deploy Private Git Repo">
+<meta property="og:url" content="http://example.com/2025/12/30/software_engineering/gitea/index.html">
 <meta property="og:site_name" content="Weixiong&#39;s Website">
-<meta property="og:description" content="动手搭建一个私有代码仓库 动手搭建一个私有代码仓库 为什么不用 Github 部署 通过 Docker 安装 邮件设置 CI&#x2F;CD https Bug git clone 无效     使用    为什么不用 GithubGithub, Gitee 能够满足绝大多数个体对代码托管平台的需求, 但是团队超过 5 人需要开通企业版, 人均 300 元每年。但是如果你们已经有一台服务器, 就可以用 Gi">
+<meta property="og:description" content="动手搭建一个私有代码仓库Github, Gitee 能够满足绝大多数个体对代码托管平台的需求, 但是团队超过 5 人需要开通企业版, 人均 300 元每年。但是如果你们已经有一台服务器, 就可以用 Gitea 零成本部署一个私有代码托管服务。下面是具体做法。">
 <meta property="og:locale">
-<meta property="article:published_time" content="2024-03-24T02:54:27.704Z">
-<meta property="article:modified_time" content="2026-01-31T03:29:23.757Z">
+<meta property="article:published_time" content="2025-12-30T21:33:52.000Z">
+<meta property="article:modified_time" content="2026-01-31T04:03:46.228Z">
 <meta property="article:author" content="Weixiong Lin">
+<meta property="article:tag" content="Software Engineering">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Weixiong&#39;s Website" type="application/atom+xml">
@@ -151,11 +152,27 @@
             <article id="post-software_engineering/gitea" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Deploy Private Git Repo
+    </h1>
+  
+
+        
+        <a href="/2025/12/30/software_engineering/gitea/" class="archive-article-date">
+  	<time datetime="2025-12-30T21:33:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-12-30</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="动手搭建一个私有代码仓库"><a href="#动手搭建一个私有代码仓库" class="headerlink" title="动手搭建一个私有代码仓库"></a>动手搭建一个私有代码仓库</h1><ul>
+        <h1 id="动手搭建一个私有代码仓库"><a href="#动手搭建一个私有代码仓库" class="headerlink" title="动手搭建一个私有代码仓库"></a>动手搭建一个私有代码仓库</h1><p>Github, Gitee 能够满足绝大多数个体对代码托管平台的需求, 但是团队超过 5 人需要开通企业版, 人均 300 元每年。<br>但是如果你们已经有一台服务器, 就可以用 Gitea 零成本部署一个私有代码托管服务。<br>下面是具体做法。</p>
+<a id="more"></a>
+<ul>
 <li><a href="#动手搭建一个私有代码仓库">动手搭建一个私有代码仓库</a><ul>
-<li><a href="#为什么不用-github">为什么不用 Github</a></li>
 <li><a href="#部署">部署</a><ul>
 <li><a href="#通过-docker-安装">通过 Docker 安装</a></li>
 <li><a href="#邮件设置">邮件设置</a></li>
@@ -171,7 +188,6 @@
 </ul>
 </li>
 </ul>
-<h2 id="为什么不用-Github"><a href="#为什么不用-Github" class="headerlink" title="为什么不用 Github"></a>为什么不用 Github</h2><p>Github, Gitee 能够满足绝大多数个体对代码托管平台的需求, 但是团队超过 5 人需要开通企业版, 人均 300 元每年。<br>但是如果你们已经有一台服务器, 就可以用 Gitea 零成本部署一个私有代码托管服务。<br>下面是具体做法。</p>
 <h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p><a target="_blank" rel="noopener" href="https://github.com/go-gitea/gitea">Gitea</a></p>
 <p>不确定 dataset 怎么选, 默认是 sql lite, 如果够用就不装别的了. <a target="_blank" rel="noopener" href="https://docs.gitea.com/installation/database-prep">Database Preparation</a></p>
 <p>如果感觉看不懂 docker 教程可以继续看这个 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1SG4y1T7zr?p=34&amp;vd_source=b1ebb6aa45d1329619a28e66813e1849">Docker Compose 教程</a></p>
@@ -246,6 +262,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Software Engineering</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -259,18 +286,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2024/04/19/blog/busuanzi/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Busuanzi
-        
-      </div>
-    </a>
   
-  
-    <a href="/2023/11/29/software_engineering/OSS/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Object Storage Service</div>
+    <a href="/2024/06/07/ML/bayesian/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Intro to Bayesian Theory</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -289,6 +307,19 @@
             </div>
         </div>
         
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8A%A8%E6%89%8B%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%A7%81%E6%9C%89%E4%BB%A3%E7%A0%81%E4%BB%93%E5%BA%93"><span class="toc-number">1.</span> <span class="toc-text">动手搭建一个私有代码仓库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2"><span class="toc-number">1.1.</span> <span class="toc-text">部署</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87-Docker-%E5%AE%89%E8%A3%85"><span class="toc-number">1.1.1.</span> <span class="toc-text">通过 Docker 安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%82%AE%E4%BB%B6%E8%AE%BE%E7%BD%AE"><span class="toc-number">1.1.2.</span> <span class="toc-text">邮件设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CI-CD"><span class="toc-number">1.1.3.</span> <span class="toc-text">CI&#x2F;CD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#https"><span class="toc-number">1.1.4.</span> <span class="toc-text">https</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bug"><span class="toc-number">1.1.5.</span> <span class="toc-text">Bug</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#git-clone-%E6%97%A0%E6%95%88"><span class="toc-number">1.1.5.1.</span> <span class="toc-text">git clone 无效</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-number">1.2.</span> <span class="toc-text">使用</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
         
     </div>
 </aside>
@@ -410,19 +441,19 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Reading Notes, RL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">blog</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Matrix Theory</a>
+                <a href="javascript:void(0)" class="js-tag color4">Reading Notes</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Reading Notes</a>
+                <a href="javascript:void(0)" class="js-tag color3">Reading Notes, RL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Matrix Theory</a>
               </li>
              
               <li class="article-tag-list-item">

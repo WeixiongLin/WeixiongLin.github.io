@@ -6,19 +6,16 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Why to use @dataclass | Weixiong&#39;s Website</title>
+  <title>Archives: 2025/12 | Weixiong&#39;s Website</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="为什么要用 @dataclass在阅读 python 代码的时候, 我们时不时会看到 @dataclass 这个装饰器.它使用起来很方便, 但是你有没有思考过其中的设计思路呢, 今天我们来探索一下 dataclass 是如何从众提案中脱颖而出的.">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Why to use @dataclass">
-<meta property="og:url" content="http://example.com/2023/08/30/python/dataclass/index.html">
+  <meta name="description" content="废物">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Weixiong&#39;s Website">
+<meta property="og:url" content="http://example.com/archives/2025/12/index.html">
 <meta property="og:site_name" content="Weixiong&#39;s Website">
-<meta property="og:description" content="为什么要用 @dataclass在阅读 python 代码的时候, 我们时不时会看到 @dataclass 这个装饰器.它使用起来很方便, 但是你有没有思考过其中的设计思路呢, 今天我们来探索一下 dataclass 是如何从众提案中脱颖而出的.">
+<meta property="og:description" content="废物">
 <meta property="og:locale">
-<meta property="article:published_time" content="2023-08-30T21:33:52.000Z">
-<meta property="article:modified_time" content="2024-03-24T02:54:27.704Z">
 <meta property="article:author" content="Weixiong Lin">
-<meta property="article:tag" content="Python">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Weixiong&#39;s Website" type="application/atom+xml">
@@ -149,165 +146,60 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-python/dataclass" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      Why to use @dataclass
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2025" class="archive-year">2025</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2025/12/30/software_engineering/gitea/" class="archive-article-date">
+  	<time datetime="2025-12-30T21:33:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-12-30</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2025/12/30/software_engineering/gitea/">Deploy Private Git Repo</a>
     </h1>
   
 
-        
-        <a href="/2023/08/30/python/dataclass/" class="archive-article-date">
-  	<time datetime="2023-08-30T21:33:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-08-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="为什么要用-dataclass"><a href="#为什么要用-dataclass" class="headerlink" title="为什么要用 @dataclass"></a>为什么要用 @dataclass</h1><p>在阅读 python 代码的时候, 我们时不时会看到 <code>@dataclass</code> 这个装饰器.<br>它使用起来很方便, 但是你有没有思考过其中的设计思路呢, 今天我们来探索一下 <code>dataclass</code> 是如何从众提案中脱颖而出的.</p>
-<a id="more"></a>
-<ul>
-<li><a href="#为什么要用-dataclass">为什么要用 @dataclass</a><ul>
-<li><a href="#一个更紧凑的数据类">一个更紧凑的数据类</a></li>
-<li><a href="#其他方案">其他方案</a></li>
-<li><a href="#参考资料">参考资料</a></li>
-</ul>
-</li>
-</ul>
-<h2 id="一个更紧凑的数据类"><a href="#一个更紧凑的数据类" class="headerlink" title="一个更紧凑的数据类"></a>一个更紧凑的数据类</h2><p><code>dataclass</code> 本身是为了寻找一种能够方便存放数据的结构, 而通过 <code>class</code> 定义完整的类过于臃肿.</p>
-<p>例如我们希望有一个容器来保存 <code>Student</code> 相关的数据, 可以定义一个这样的类</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, name, age, phone_num, wechat, ...</span>):</span></span><br><span class="line">        self.name = name</span><br><span class="line">        self.age = age</span><br><span class="line">        self.phone_num = phone_num</span><br><span class="line">        self.wechat = wechat</span><br><span class="line">        ...</span><br><span class="line"></span><br><span class="line">stu = Student(<span class="string">&#x27;stu-name&#x27;</span>, <span class="number">23</span>, <span class="string">&#x27;010-0000&#x27;</span>, <span class="string">&#x27;wechat_id&#x27;</span>)</span><br><span class="line">print(stu.name)</span><br></pre></td></tr></table></figure>
-<p>但是这样写会显得很累赘, 毕竟我们只是想要一个可以用 dot operation 获取内容的容器. 结果却定义了一个完整的 <code>class</code>.<br>显然这样的代码不符合 Pythonic 的理念, 而通过 <code>dataclass</code> 则可以让代码更加简洁.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@dataclass</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span>:</span></span><br><span class="line">    name: <span class="built_in">str</span> = <span class="literal">None</span></span><br><span class="line">    age: <span class="built_in">int</span> = <span class="literal">None</span></span><br><span class="line">    phone_num: <span class="built_in">str</span> = <span class="literal">None</span></span><br><span class="line">    wechat: <span class="built_in">str</span> = <span class="literal">None</span></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">stu = Student(<span class="string">&#x27;stu-name&#x27;</span>, <span class="number">23</span>, <span class="string">&#x27;010-0000&#x27;</span>, <span class="string">&#x27;wechat_id&#x27;</span>)</span><br><span class="line">print(stu.name)</span><br></pre></td></tr></table></figure>
-<p>这样在保留 <code>class</code> 的大部分特性的同时, 保证了代码的紧凑.</p>
-<h2 id="其他方案"><a href="#其他方案" class="headerlink" title="其他方案"></a>其他方案</h2><p>值得注意的是, 社区内提出了各种的方案尝试解决这个问题, 并不只有 <code>dataclass</code> 唯一的方案.<br>例如在 <code>collections</code> 中提供了 <code>namedtuple</code>, 可以访问 named attributes.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> namedtuple</span><br><span class="line"></span><br><span class="line">Student = namedtuple(<span class="string">&#x27;Student&#x27;</span>, [<span class="string">&#x27;name&#x27;</span>, <span class="string">&#x27;age&#x27;</span>, <span class="string">&#x27;DOB&#x27;</span>])</span><br><span class="line"></span><br><span class="line">S = Student(<span class="string">&#x27;Nandini&#x27;</span>, <span class="string">&#x27;19&#x27;</span>, <span class="string">&#x27;2541997&#x27;</span>)</span><br><span class="line">print(<span class="string">&quot;The Student age using index is : &quot;</span>, end=<span class="string">&quot;&quot;</span>)</span><br><span class="line">print(S[<span class="number">1</span>])</span><br><span class="line"> </span><br><span class="line"><span class="comment"># Access using name</span></span><br><span class="line">print(<span class="string">&quot;The Student name using keyname is : &quot;</span>, end=<span class="string">&quot;&quot;</span>)</span><br><span class="line">print(S.name)</span><br></pre></td></tr></table></figure>
-<p>但是根据 <a target="_blank" rel="noopener" href="https://peps.python.org/pep-0557/">PEP 0557</a> 中对于 <a target="_blank" rel="noopener" href="https://peps.python.org/pep-0557/#why-not-just-use-namedtuple">Why not just use namedtuple</a> 的讨论, 我们可以知道 <code>namedtuple</code> 存在诸多不足.<br>例如通过 <code>namedtuple</code> 定义的 <code>Point3D(2017, 6, 2) == Date(2017, 6, 2)</code>, 而 <code>dataclass</code> 能够使得不属于同一 <code>class</code> 的实例无法直接用数值判断是否相等.</p>
-<p>虽然通过 PEP-557 我们了解到了 <code>dataclass</code> 相对于其他几种解决方案的优势, 并且最终被广泛接受.<br>然而还是应该对 <code>dataclass</code> 之外的其他方案保持开放的心态.</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/51082418/python-3-7-utility-of-dataclasses-and-simplenamespace">Python 3.7: Utility of Dataclasses and SimpleNameSpace</a></li>
-</ul>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              🤺
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>Call Me 😎<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/assets/img/wechat.jpg">
-                      <!-- <span class="reward-type">微信</span> -->
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Software Engineering</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2023/09/04/python/static_class_method/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Sugar for Class Methods
-        
-      </div>
-    </a>
   
   
-    <a href="/2022/12/05/matrix/matrix_theory/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Matrix Theory</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-        <div class="toc-container tooltip-left">
-            <i class="icon-font icon-category"></i>
-            <div class="tooltip tooltip-east">
-                <span class="tooltip-item">
-                </span>
-                <span class="tooltip-content">
-                    <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8-dataclass"><span class="toc-number">1.</span> <span class="toc-text">为什么要用 @dataclass</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E4%B8%AA%E6%9B%B4%E7%B4%A7%E5%87%91%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB"><span class="toc-number">1.1.</span> <span class="toc-text">一个更紧凑的数据类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E6%96%B9%E6%A1%88"><span class="toc-number">1.2.</span> <span class="toc-text">其他方案</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">1.3.</span> <span class="toc-text">参考资料</span></a></li></ol></li></ol>
-                    </div>
-                </span>
-            </div>
-        </div>
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -332,8 +224,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
