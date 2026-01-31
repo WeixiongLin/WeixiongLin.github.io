@@ -6,15 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2023/8 | Weixiong&#39;s Website</title>
+  <title>Weixiong&#39;s Website</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="废物">
-<meta property="og:type" content="website">
+  <meta name="description" content="动手搭建一个私有代码仓库 动手搭建一个私有代码仓库 为什么不用 Github 部署 通过 Docker 安装 邮件设置 CI&#x2F;CD https Bug git clone 无效     使用    为什么不用 GithubGithub, Gitee 能够满足绝大多数个体对代码托管平台的需求, 但是团队超过 5 人需要开通企业版, 人均 300 元每年。但是如果你们已经有一台服务器, 就可以用 Gi">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Weixiong&#39;s Website">
-<meta property="og:url" content="http://example.com/archives/2023/08/index.html">
+<meta property="og:url" content="http://example.com/2024/03/24/software_engineering/gitea/index.html">
 <meta property="og:site_name" content="Weixiong&#39;s Website">
-<meta property="og:description" content="废物">
+<meta property="og:description" content="动手搭建一个私有代码仓库 动手搭建一个私有代码仓库 为什么不用 Github 部署 通过 Docker 安装 邮件设置 CI&#x2F;CD https Bug git clone 无效     使用    为什么不用 GithubGithub, Gitee 能够满足绝大多数个体对代码托管平台的需求, 但是团队超过 5 人需要开通企业版, 人均 300 元每年。但是如果你们已经有一台服务器, 就可以用 Gi">
 <meta property="og:locale">
+<meta property="article:published_time" content="2024-03-24T02:54:27.704Z">
+<meta property="article:modified_time" content="2026-01-31T03:29:23.757Z">
 <meta property="article:author" content="Weixiong Lin">
 <meta name="twitter:card" content="summary">
   
@@ -146,60 +148,162 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-software_engineering/gitea" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="动手搭建一个私有代码仓库"><a href="#动手搭建一个私有代码仓库" class="headerlink" title="动手搭建一个私有代码仓库"></a>动手搭建一个私有代码仓库</h1><ul>
+<li><a href="#动手搭建一个私有代码仓库">动手搭建一个私有代码仓库</a><ul>
+<li><a href="#为什么不用-github">为什么不用 Github</a></li>
+<li><a href="#部署">部署</a><ul>
+<li><a href="#通过-docker-安装">通过 Docker 安装</a></li>
+<li><a href="#邮件设置">邮件设置</a></li>
+<li><a href="#cicd">CI/CD</a></li>
+<li><a href="#https">https</a></li>
+<li><a href="#bug">Bug</a><ul>
+<li><a href="#git-clone-无效">git clone 无效</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#使用">使用</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="为什么不用-Github"><a href="#为什么不用-Github" class="headerlink" title="为什么不用 Github"></a>为什么不用 Github</h2><p>Github, Gitee 能够满足绝大多数个体对代码托管平台的需求, 但是团队超过 5 人需要开通企业版, 人均 300 元每年。<br>但是如果你们已经有一台服务器, 就可以用 Gitea 零成本部署一个私有代码托管服务。<br>下面是具体做法。</p>
+<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p><a target="_blank" rel="noopener" href="https://github.com/go-gitea/gitea">Gitea</a></p>
+<p>不确定 dataset 怎么选, 默认是 sql lite, 如果够用就不装别的了. <a target="_blank" rel="noopener" href="https://docs.gitea.com/installation/database-prep">Database Preparation</a></p>
+<p>如果感觉看不懂 docker 教程可以继续看这个 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1SG4y1T7zr?p=34&amp;vd_source=b1ebb6aa45d1329619a28e66813e1849">Docker Compose 教程</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/go-gitea/gitea/blob/release/v1.21/custom/conf/app.example.ini">app-example.ini</a></p>
+<p>部署 Gitea 折腾了不少时间, 这里都记录一下.</p>
+<h3 id="通过-Docker-安装"><a href="#通过-Docker-安装" class="headerlink" title="通过 Docker 安装"></a>通过 Docker 安装</h3><p>第一步当然是安装 docker, 直接用 gitea 官方提供的 docker 镜像就可以。</p>
+<p>通过 docker 安装 gitea: <a target="_blank" rel="noopener" href="https://docs.gitea.com/installation/install-with-docker">Installation with Docker</a><br>当然配置好之后没法直接使用, 需要对于端口进行进一步的调节。</p>
+<p>例如官方提供的这个默认的 <code>docker-compose.yml</code> 文件</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&quot;3&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">networks:</span></span><br><span class="line">  <span class="attr">gitea:</span></span><br><span class="line">    <span class="attr">external:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">server:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">gitea/gitea:1.21.0</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">gitea</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">USER_UID=1000</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">USER_GID=1000</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">gitea</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./gitea:/data</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/etc/timezone:/etc/timezone:ro</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/etc/localtime:/etc/localtime:ro</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;3000:3000&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;222:22&quot;</span></span><br></pre></td></tr></table></figure>
+<p>将服务器的 222 端口和 docker 容器的 22 端口绑定, 所以需要将服务器安全组的 222 端口暴露出来。<br>然后 <code>gitea/gitea/conf/app.ini</code> 中的字段改成 <code>SSH_PORT = 222</code>.</p>
+<p>这样之后用户上传自己的密钥, 就可以使用 git clone 操作仓库了。</p>
+<h3 id="邮件设置"><a href="#邮件设置" class="headerlink" title="邮件设置"></a>邮件设置</h3><p>首先我们在 <code>gitea/gitea/conf/app.ini</code> 中通过设置</p>
+<ul>
+<li><code>DISABLE_REGISTRATION = true</code>: 禁止通过网页直接注册</li>
+<li><code>REQUIRE_SIGNIN_VIEW = true</code>: 要求用户先登录, 然后才能观看</li>
+<li><code>REGISTER_EMAIL_CONFIRM = true</code>: 管理员帮用户注册之后, 要用户通过 email 进行认证</li>
+</ul>
+<p>这样用户在登录之后, 应该会被自动要求修改密码。</p>
+<p>此外, 我们希望管理员添加新用户之后, gitea 能够发送邮件进行确认。</p>
+<p>涉及到 Gitea 的配置为</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[mailer]</span></span><br><span class="line"><span class="attr">ENABLED</span>        = <span class="literal">true</span></span><br><span class="line"><span class="attr">PROTOCOL</span>    = smtps</span><br><span class="line"></span><br><span class="line"><span class="comment">;foxmail</span></span><br><span class="line"><span class="attr">SMTP_ADDR</span>      = smtp.qq.com</span><br><span class="line"><span class="attr">SMTP_PORT</span>      = <span class="number">465</span></span><br><span class="line"><span class="attr">FROM</span>           = usr@foxmail.com</span><br><span class="line"><span class="attr">USER</span>           = usr@foxmail.com</span><br><span class="line"><span class="attr">PASSWD</span>         = `***`</span><br></pre></td></tr></table></figure>
+<p>本来官方的 <a target="_blank" rel="noopener" href="https://docs.gitea.com/administration/email-setup">Gitea Email Setup</a> 给的例子是用 Gmail 的 SMTP Server 进行邮件发送。<br>但是国内的服务器和 Gmail 连接不稳定, 所以干脆用了 FoxMail 的服务。</p>
+<p>其他可参考资料</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://www.helpdocshub.com/349.html">Gitea启用注册邮箱服务等其他相关验证</a></li>
+</ol>
+<h3 id="CI-CD"><a href="#CI-CD" class="headerlink" title="CI/CD"></a>CI/CD</h3><p>对于大型项目来说, 我们通常需要集成很多功能。<br>比如在允许大家 push 代码之前要进行一系列的测试, 也许是 Code Format, 也许是自己设定的一些 test case。</p>
+<p>这样的功能被称为 持续交付/集成, 而且这些检查最适宜的时机就是用户在试图提交 PR 的时候。我之前在提交 <a target="_blank" rel="noopener" href="https://github.com/allenai/scispacy/pull/499">allen/scispacy: PR-499</a> 的时候代码有 Bug, 被管理员设定的测试检验出来了, 可见这些测试起到的作用。</p>
+<p>【【新功能】Gitea Actions 带你体验 CI/CD 自动化工作流】 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1yA411d7ex/?share_source=copy_web&amp;vd_source=7109efcb7a5a0ffa60069f370e699736">https://www.bilibili.com/video/BV1yA411d7ex/?share_source=copy_web&amp;vd_source=7109efcb7a5a0ffa60069f370e699736</a></p>
+<p><a target="_blank" rel="noopener" href="https://gitea.com/gitea/awesome-gitea#user-content-devops">gitea/awesome-gitea</a></p>
+<h3 id="https"><a href="#https" class="headerlink" title="https"></a>https</h3><p>通过 nginx 做方向代理, 把 $DOMAIN/git/ 这个路由映射到 $DOMAIN:3000 端口.<br>这样同时能够实现域名共享和 https.</p>
+<h3 id="Bug"><a href="#Bug" class="headerlink" title="Bug"></a>Bug</h3><h4 id="git-clone-无效"><a href="#git-clone-无效" class="headerlink" title="git clone 无效"></a>git clone 无效</h4><p>例如 <code>git clone ssh://git@$DOMAIN:$SSH_PORT/usr/repo.git</code> 命令没有成功, 可以从以下几个方面进行排查。</p>
+<ol>
+<li><p>用户密钥的添加方式</p>
+<p>不要直接把用户密钥写入 <code>./gitea/git/.ssh/authorized_keys</code>, 这样只能通过绝对路径 git clone.<br>也就是说, 如果 <code>repo.git</code> 在容器中的绝对路径为 <code>/data/git/repositories/usr/repo.git</code>, 那么直接手动写入用户密钥只能用<br><code>git clone ssh://git@$DOMAIN:$SSH_PORT/data/git/repositories/usr/repo.git</code> 执行。<br>并且这样做用户事实上可以通过执行 <code>ssh git@$DOMAIN:$SSH_PORT</code> 来直接登录镜像, 这样太危险了。</p>
+<p>正确的做法是通过网页控制台添加 SSH KEY. 这样能够直接用相对路径克隆代码, 同时用户也无法通过 <code>ssh</code> 命令直接登录到容器内部。</p>
+<p>具体在用户网页添加 SSH kEY 之后发生了什么, 导致出现上述现象, 我暂时不清楚。</p>
+</li>
+</ol>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>在完成基本的配置之后, 更重要的是利用已有的功能更好的帮助开发。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              🤺
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>Call Me 😎<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/wechat.jpg">
+                      <!-- <span class="reward-type">微信</span> -->
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2023" class="archive-year">2023</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/08/30/python/dataclass/" class="archive-article-date">
-  	<time datetime="2023-08-30T21:33:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-08-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/08/30/python/dataclass/">Why to use @dataclass</a>
-    </h1>
-  
+      
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
+      
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2024/04/19/blog/busuanzi/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Busuanzi
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2023/11/29/software_engineering/OSS/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Object Storage Service</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -224,8 +328,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

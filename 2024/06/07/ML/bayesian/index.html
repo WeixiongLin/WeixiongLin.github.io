@@ -16,7 +16,7 @@
 <meta property="og:description" content="贝叶斯理论基础先验(prior), 后验(posterior), 似然(likelihood), 证据(evidence) 这些词是不是很耳熟？我们将介绍这些概念并通过他们的应用增进对贝叶斯观点的理解。">
 <meta property="og:locale">
 <meta property="article:published_time" content="2024-06-07T15:45:42.000Z">
-<meta property="article:modified_time" content="2024-10-05T17:28:35.749Z">
+<meta property="article:modified_time" content="2024-10-06T01:44:26.525Z">
 <meta property="article:author" content="Weixiong Lin">
 <meta property="article:tag" content="Machine Learning">
 <meta name="twitter:card" content="summary">
@@ -176,6 +176,7 @@
 <li><a href="#先验似然后验">先验、似然、后验</a></li>
 <li><a href="#极大似然法-maximum-likelihood-estimation">极大似然法 (Maximum Likelihood Estimation)</a><ul>
 <li><a href="#交叉熵损失">交叉熵损失</a></li>
+<li><a href="#kl-divergence">KL Divergence</a></li>
 </ul>
 </li>
 <li><a href="#参考资料">参考资料</a></li>
@@ -261,11 +262,17 @@ f(\theta) = \frac{1}{\sqrt{2 \pi}} e^{-\frac{(\theta - 0.5)^2}{2}}</script><p>�
   =& \arg\max \sum_x \frac{N(x)}{N} \log Q(x) \\
   =& \arg\max \sum_x P(x) \log Q(x) \\
 \end{align*}</script><p>其中 $\frac{N(x)}{N} = P(x)$ 就是我们在实验中真正观察到每种情况的概率也就是 Ground Truth。</p>
+<h3 id="KL-Divergence"><a href="#KL-Divergence" class="headerlink" title="KL Divergence"></a>KL Divergence</h3><p>得到了 Entropy 和 Cross Entropy 的定义之后, KL Divergence 的含义是显而易见的。</p>
+<script type="math/tex; mode=display">
+D_{KL}(P \Vert Q) = H(P, Q) - H(P)</script><p>也就是表示用模型 $Q(X)$ 来拟合 $P(X)$ 时, 传递信息比最优编码需要的额外信息量。</p>
 <p>参考资料:</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/65288314/answer/849294209">为什么交叉熵（cross-entropy）可以用于计算代价？ - 灵剑的回答 - 知乎</a></li>
 <li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/149186719">一文搞懂熵(Entropy),交叉熵(Cross-Entropy) - 将为帅的文章 - 知乎</a></li>
 <li><a target="_blank" rel="noopener" href="https://ramsane.github.io/articles/cross-entropy-explained-with-entropy-and-kl-divergence">CE Explained with Entropy and KL Divergence</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/389179483">KL散度和交叉熵(Cross Entropy)的联系 - SinGaln的文章 - 知乎</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/638725320">交叉熵损失函数（Cross Entropy Loss） - Song的文章 - 知乎</a></li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Cross-entropy">wiki: Cross Entropy</a></li>
 </ul>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Bayesian_statistics">WiKi: Bayesian Statistics</a></li>
@@ -380,7 +387,7 @@ f(\theta) = \frac{1}{\sqrt{2 \pi}} e^{-\frac{(\theta - 0.5)^2}{2}}</script><p>�
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2024 Weixiong Lin
+    		&copy; 2026 Weixiong Lin
     	</div>
       	<div class="footer-right">
 	      <div class="busuanzi"><span id="busuanzi_value_page_pv"></span> views</div>
